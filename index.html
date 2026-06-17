@@ -64,9 +64,7 @@
       "availableLanguage": ["English", "Hindi"]
     },
     "sameAs": [
-      "https://www.instagram.com/brupper.here",
-      "https://play.google.com/store/apps/details?id=com.bruppers.app",
-      "https://apps.apple.com/app/bruppers/id000000000"
+      "https://www.instagram.com/brupper.here"
     ]
   }
   </script>
@@ -127,9 +125,10 @@
     "mainEntity": [
       {"@type": "Question", "name": "How does Bruppers work?", "acceptedAnswer": {"@type": "Answer", "text": "Pick a plan, pay once, receive fresh home-cooked meals daily. Skip any day in the app."}},
       {"@type": "Question", "name": "Can I skip or pause my subscription?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Skip or pause any day with a single tap in the app."}},
+      {"@type": "Question", "name": "What is the cancellation policy?", "acceptedAnswer": {"@type": "Answer", "text": "You can cancel lunch orders before 10:00 AM and dinner orders before 5:00 PM. Cancel before the cut-off and you won't be charged for that meal."}},
       {"@type": "Question", "name": "How much does Bruppers cost?", "acceptedAnswer": {"@type": "Answer", "text": "Starting at Rs.99/day for Lunch Only or Dinner Only. Lunch + Dinner combo is Rs.169/day."}},
       {"@type": "Question", "name": "Is the food freshly cooked?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, every meal is cooked fresh each morning and delivered hot."}},
-      {"@type": "Question", "name": "Where can I download Bruppers?", "acceptedAnswer": {"@type": "Answer", "text": "Free on Google Play and the Apple App Store."}}
+      {"@type": "Question", "name": "How do I order from Bruppers?", "acceptedAnswer": {"@type": "Answer", "text": "Order online at meals.bruppers.com. Our Android and iOS apps are launching soon."}}
     ]
   }
   </script>
@@ -1809,6 +1808,812 @@
     .faq-item.open .faq-answer {
       max-height: 300px;
     }
+
+    /* ─────────────────────────────────────────────
+       INTERACTIVITY & ANIMATION LAYER
+       ───────────────────────────────────────────── */
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s cubic-bezier(.22, .61, .36, 1),
+        transform .8s cubic-bezier(.22, .61, .36, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* staggered children (cards in a grid cascade in) */
+    .reveal-stagger>* {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .6s cubic-bezier(.22, .61, .36, 1),
+        transform .6s cubic-bezier(.22, .61, .36, 1);
+    }
+
+    .reveal-stagger.in>* {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-stagger.in>*:nth-child(1) { transition-delay: .04s; }
+    .reveal-stagger.in>*:nth-child(2) { transition-delay: .12s; }
+    .reveal-stagger.in>*:nth-child(3) { transition-delay: .20s; }
+    .reveal-stagger.in>*:nth-child(4) { transition-delay: .28s; }
+    .reveal-stagger.in>*:nth-child(5) { transition-delay: .36s; }
+    .reveal-stagger.in>*:nth-child(6) { transition-delay: .44s; }
+
+    /* ── Hero entrance + float ── */
+    @keyframes heroRise {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .hero-content > * {
+      opacity: 0;
+      animation: heroRise .8s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: .05s; }
+    .hero-content > *:nth-child(2) { animation-delay: .15s; }
+    .hero-content > *:nth-child(3) { animation-delay: .25s; }
+    .hero-content > *:nth-child(4) { animation-delay: .35s; }
+    .hero-content > *:nth-child(5) { animation-delay: .45s; }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    .hero-card {
+      animation: floatY 6s ease-in-out infinite;
+    }
+
+    /* ── Animated count-up pills ── */
+    .stat-pill strong {
+      transition: transform .3s ease;
+    }
+    .stat-pill:hover strong {
+      transform: scale(1.08);
+    }
+
+    /* ── WEEKLY MENU WIDGET ── */
+    #menu {
+      background: var(--white);
+    }
+
+    .menu-widget {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      align-items: stretch;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: var(--shadow-lg);
+      transition: transform .35s cubic-bezier(.22, .61, .36, 1), box-shadow .35s ease, opacity .8s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .menu-widget:hover {
+      box-shadow: 0 24px 70px rgba(139, 16, 16, .38);
+    }
+
+    /* moving shine sweep on hover */
+    .menu-widget::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .22), transparent);
+      transform: skewX(-18deg);
+      transition: left .85s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .menu-widget:hover::after {
+      left: 130%;
+    }
+
+    .menu-widget-content {
+      padding: 48px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .menu-widget-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      align-self: flex-start;
+      background: rgba(255, 255, 255, .16);
+      border: 1px solid rgba(255, 255, 255, .25);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .menu-widget-tag .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #6BE89A;
+      box-shadow: 0 0 0 0 rgba(107, 232, 154, .7);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(107, 232, 154, .7); }
+      70%  { box-shadow: 0 0 0 9px rgba(107, 232, 154, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(107, 232, 154, 0); }
+    }
+
+    .menu-widget h2 {
+      font-size: clamp(26px, 3.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .menu-widget p {
+      font-size: 15px;
+      opacity: .85;
+      max-width: 380px;
+      margin-bottom: 26px;
+    }
+
+    .menu-widget-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      background: #fff;
+      color: var(--red);
+      padding: 13px 26px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .menu-widget-cta .arrow {
+      transition: transform .3s ease;
+    }
+
+    .menu-widget:hover .menu-widget-cta .arrow {
+      transform: translateX(6px);
+    }
+
+    /* decorative right panel — real cuisine tiles (the USP) */
+    .menu-widget-visual {
+      position: relative;
+      min-height: 300px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      background:
+        radial-gradient(circle at 70% 25%, rgba(255, 255, 255, .12), transparent 55%),
+        radial-gradient(circle at 25% 85%, rgba(0, 0, 0, .20), transparent 55%);
+    }
+
+    .cuisine-tile {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .30);
+      animation: floatY 6.5s ease-in-out infinite;
+    }
+
+    .cuisine-tile:nth-child(1) { animation-duration: 6s; }
+    .cuisine-tile:nth-child(2) { animation-duration: 7.2s; animation-delay: .5s; }
+    .cuisine-tile:nth-child(3) { animation-duration: 6.6s; animation-delay: .9s; }
+    .cuisine-tile:nth-child(4) { animation-duration: 7.6s; animation-delay: .3s; }
+
+    .cuisine-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .55s ease;
+    }
+
+    .menu-widget:hover .cuisine-tile img {
+      transform: scale(1.09);
+    }
+
+    .cuisine-tile span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 18px 10px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0, 0, 0, .78), transparent);
+    }
+
+    /* ── TESTIMONIAL CARD STACK ── */
+    .stack {
+      position: relative;
+      max-width: 580px;
+      height: 300px;
+      margin: 0 auto;
+      perspective: 1200px;
+    }
+
+    .stack-card {
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 34px 36px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform .55s cubic-bezier(.22, .61, .36, 1),
+        opacity .55s ease, filter .55s ease;
+      will-change: transform, opacity;
+      user-select: none;
+    }
+
+    .stack-card .stars {
+      margin-bottom: 16px;
+    }
+
+    .stack-card p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .stack-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .stack-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--cream-dark);
+      background: var(--white);
+      color: var(--red);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s, transform .15s, background .2s;
+    }
+
+    .stack-btn:hover {
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .stack-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .stack-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .25s, transform .25s;
+    }
+
+    .stack-dot.active {
+      background: var(--red);
+      transform: scale(1.25);
+    }
+
+    /* ── Download strip polish ── */
+    .store-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .store-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .25), transparent);
+      transform: skewX(-18deg);
+      transition: left .7s ease;
+    }
+
+    .store-btn:hover::before {
+      left: 140%;
+    }
+
+    .store-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .store-btn svg {
+      transition: transform .3s ease;
+    }
+
+    .store-btn:hover svg {
+      transform: scale(1.12) rotate(-4deg);
+    }
+
+    /* ── Feature icon micro-interaction ── */
+    .feature-card .feature-icon {
+      transition: transform .3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotate(-8deg) scale(1.1);
+    }
+
+    /* ── Menu widget responsive ── */
+    @media (max-width: 768px) {
+      .menu-widget {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-widget-content {
+        padding: 32px 26px;
+      }
+
+      .menu-widget-visual {
+        min-height: 240px;
+        order: -1;
+      }
+
+      .stack {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stack {
+        height: 400px;
+      }
+
+      .stack-card {
+        padding: 26px 24px;
+      }
+
+      .stack-card p {
+        font-size: 14px;
+      }
+    }
+
+    /* ── Hero atmosphere (soft brand glow blobs) ── */
+    .hero {
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -90px;
+      right: -140px;
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, rgba(139, 16, 16, .10), transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: -120px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(139, 16, 16, .07), transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content,
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Hero cuisine chips (the USP, up front) ── */
+    .hero-cuisines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .hero-cuisines span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      background: var(--red-light);
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(139, 16, 16, .12);
+    }
+
+    /* ── Order Online CTA (apps not live yet) ── */
+    .order-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: var(--red);
+      padding: 16px 34px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 17px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .order-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, .26);
+    }
+
+    .order-cta .arrow {
+      transition: transform .3s ease;
+    }
+
+    .order-cta:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    .apps-soon {
+      margin-top: 22px !important;
+      font-size: 13px !important;
+      opacity: .7;
+    }
+
+    /* "Coming soon" badge on store buttons */
+    .store-btn {
+      position: relative;
+    }
+
+    .store-badge {
+      position: absolute;
+      top: -9px;
+      right: 10px;
+      background: #fff;
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 50px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .18);
+    }
+
+    /* ── Floating "Order" button (with attention ring) ── */
+    .float-btn.order {
+      background: var(--red);
+      position: relative;
+    }
+
+    .float-btn.order::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(139, 16, 16, .55);
+      animation: ringPulse 2.2s ease-out infinite;
+    }
+
+    @keyframes ringPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(139, 16, 16, .55); }
+      70%  { box-shadow: 0 0 0 16px rgba(139, 16, 16, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(139, 16, 16, 0); }
+    }
+
+    /* ─────────────────────────────────────────────
+       PUNCHY UPGRADES
+       ───────────────────────────────────────────── */
+
+    /* animated gradient headline accent */
+    @keyframes hueSlide {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--red), #E0533B, #B91C1C, var(--red));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: hueSlide 5s linear infinite;
+    }
+
+    /* sheen sweep + lift on primary buttons */
+    .btn-primary,
+    .btn-white {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after,
+    .btn-white::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .4), transparent);
+      transform: skewX(-18deg);
+      transition: left .7s ease;
+      pointer-events: none;
+    }
+
+    .btn-primary:hover::after,
+    .btn-white:hover::after {
+      left: 140%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(139, 16, 16, .35);
+    }
+
+    /* Order CTA glow pulse */
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, .18); }
+      50%      { box-shadow: 0 12px 42px rgba(255, 255, 255, .55); }
+    }
+
+    .order-cta {
+      animation: glowPulse 2.6s ease-in-out infinite;
+    }
+
+    /* featured plan glow */
+    @keyframes featGlow {
+      0%, 100% { box-shadow: 0 8px 40px rgba(139, 16, 16, .28); }
+      50%      { box-shadow: 0 14px 54px rgba(139, 16, 16, .5); }
+    }
+
+    .plan-card.featured {
+      animation: featGlow 3s ease-in-out infinite;
+    }
+
+    /* card hover pop */
+    .step-card {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* hover-draw connector arrows between steps */
+    .steps-grid {
+      position: relative;
+    }
+
+    .step-arrow {
+      position: absolute;
+      top: 36px;
+      width: 70px;
+      height: 40px;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .step-arrow-1 {
+      left: calc(33.333% - 35px);
+    }
+
+    .step-arrow-2 {
+      left: calc(66.666% - 35px);
+    }
+
+    .step-arrow .line,
+    .step-arrow .head {
+      stroke: var(--red);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .step-arrow .line,
+    .step-arrow .head {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+    }
+
+    .step-arrow .line {
+      transition: stroke-dashoffset .6s cubic-bezier(.45, 0, .25, 1);
+    }
+
+    .step-arrow .head {
+      transition: stroke-dashoffset .28s cubic-bezier(.45, 0, .25, 1);
+    }
+
+    /* sequential continuous draw: line then its head, arrow 1→2 first, then 2→3 */
+    .steps-grid:hover .step-arrow-1 .line {
+      stroke-dashoffset: 0;
+    }
+
+    .steps-grid:hover .step-arrow-1 .head {
+      stroke-dashoffset: 0;
+      transition-delay: .55s;
+    }
+
+    .steps-grid:hover .step-arrow-2 .line {
+      stroke-dashoffset: 0;
+      transition-delay: .65s;
+    }
+
+    .steps-grid:hover .step-arrow-2 .head {
+      stroke-dashoffset: 0;
+      transition-delay: 1.2s;
+    }
+
+    /* only meaningful in the 3-column layout */
+    @media (max-width: 900px) {
+      .step-arrow {
+        display: none;
+      }
+    }
+
+    .plan-card:not(.featured):hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .testimonial-card .reviewer-avatar,
+    .feature-icon {
+      transition: transform .3s ease;
+    }
+
+    /* inline icons replacing emoji */
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--red);
+    }
+
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    .order-cta .btn-icon {
+      width: 21px;
+      height: 21px;
+    }
+
+    .apps-soon-icon {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      vertical-align: -2px;
+      margin-right: 5px;
+    }
+
+    /* ── Scrolling marquee band ── */
+    .marquee {
+      background: var(--red);
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid var(--red-dark);
+      border-bottom: 1px solid var(--red-dark);
+      padding: 15px 0;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      align-items: center;
+      animation: marqueeScroll 30s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-track span {
+      color: #fff;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: .4px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .marquee-track span::after {
+      content: '✦';
+      margin: 0 26px;
+      color: rgba(255, 255, 255, .5);
+      font-size: 12px;
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Respect reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+
+      .reveal,
+      .reveal-stagger>*,
+      .hero-content>* {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .hero-card,
+      .cuisine-tile,
+      .menu-widget-tag .dot,
+      .hero h1 span,
+      .order-cta,
+      .plan-card.featured,
+      .float-btn.order::before,
+      .marquee-track {
+        animation: none !important;
+      }
+
+      .hero h1 span {
+        -webkit-text-fill-color: var(--red);
+        color: var(--red);
+      }
+
+      .stack-card,
+      .step-arrow .line,
+      .step-arrow .head {
+        transition: none !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
   </style>
 </head>
 
@@ -1827,11 +2632,12 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#menu">Menu</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#plans">Plans</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#download" class="nav-cta">Download App</a></li>
+        <li><a href="https://meals.bruppers.com" class="nav-cta" target="_blank" rel="noopener noreferrer">Order Now</a></li>
       </ul>
       <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links"
         id="hamburger">
@@ -1851,9 +2657,16 @@
           <h1>Eat Well,<br /><span>Every Day.</span></h1>
           <p>Fresh home-cooked meals at your door — starting at just ₹99/day. Subscribe to lunch, dinner, or both and
             never worry about what to eat again.</p>
+          <div class="hero-cuisines" aria-label="Cuisines we serve">
+            <span>South Indian</span>
+            <span>North Indian</span>
+            <span>Bengali</span>
+            <span>Odia</span>
+          </div>
           <div class="hero-actions">
-            <a href="#download" class="btn-primary">
-              ⬇ Download App
+            <a href="https://meals.bruppers.com" class="btn-primary" target="_blank" rel="noopener noreferrer">
+              <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12a10 10 0 0 0 20 0H2zm10-9a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 12H5a7 7 0 0 1 6-6.94V4a1 1 0 0 1 1-1z" /></svg>
+              Order Online
             </a>
             <a href="#how-it-works" class="btn-outline">
               See How it Works
@@ -1863,7 +2676,7 @@
         <div class="hero-visual">
           <div class="hero-card">
             <!-- Replace hero-food.jpg in assets/ to show a real food photo -->
-            <div class="hero-card-bg" style="background-image: url('assets/hero-food.jpg');"></div>
+            <div class="hero-card-bg" style="background-image: url('assets/butter-chicken.jpg'); background-color: transparent;"></div>
             <div class="hero-card-bg-placeholder"></div>
             <div class="hero-card-content">
               <h2>Eat Well,<br />Every Day.</h2>
@@ -1889,13 +2702,62 @@
       </div>
     </section>
 
+    <!-- ── MARQUEE BAND ── -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Fresh Every Morning</span><span>South Indian</span><span>North Indian</span><span>Bengali</span><span>Odia</span><span>Skip Anytime</span><span>₹99 / day</span><span>Home-Cooked</span><span>Delivered Hot</span><span>Fresh Every Morning</span><span>South Indian</span><span>North Indian</span><span>Bengali</span><span>Odia</span><span>Skip Anytime</span><span>₹99 / day</span><span>Home-Cooked</span><span>Delivered Hot</span>
+      </div>
+    </div>
+
+    <!-- ── WEEKLY MENU WIDGET ── -->
+    <section id="menu" aria-labelledby="menu-heading">
+      <div class="section-inner">
+        <a class="menu-widget reveal"
+          href="https://meals.bruppers.com/bruper_weekly_lunch_dinner_menu.html"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="View this week's full lunch and dinner menu (opens in a new tab)">
+          <div class="menu-widget-content">
+            <span class="menu-widget-tag"><span class="dot" aria-hidden="true"></span> Updated weekly</span>
+            <h2 id="menu-heading">This Week's<br />Lunch &amp; Dinner Menu</h2>
+            <p>One kitchen, every taste — fresh home-style South Indian, North Indian, Bengali &amp; Odia dishes
+              planned for the whole week.</p>
+            <span class="menu-widget-cta">View Full Menu <span class="arrow" aria-hidden="true">→</span></span>
+          </div>
+          <div class="menu-widget-visual" aria-hidden="true">
+            <div class="cuisine-tile">
+              <img src="assets/cuisine-south.jpg" alt="" width="400" height="400" loading="lazy" />
+              <span>South Indian</span>
+            </div>
+            <div class="cuisine-tile">
+              <img src="assets/cuisine-north.jpg" alt="" width="400" height="400" loading="lazy" />
+              <span>North Indian</span>
+            </div>
+            <div class="cuisine-tile">
+              <img src="assets/cuisine-bengali.jpg" alt="" width="400" height="400" loading="lazy" />
+              <span>Bengali</span>
+            </div>
+            <div class="cuisine-tile">
+              <img src="assets/cuisine-odia.jpg" alt="" width="400" height="400" loading="lazy" />
+              <span>Odia</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <!-- ── DOWNLOAD ── -->
     <div id="download" class="download-strip">
-      <h2>Get the Bruppers App</h2>
-      <p>Order, track, skip, and manage your meals — all from your phone.</p>
-      <div class="download-buttons">
-        <a href="https://play.google.com/store/apps/details?id=com.bruppers.app" class="store-btn" target="_blank"
-          rel="noopener noreferrer" aria-label="Download on Google Play">
+      <h2>Order Fresh Meals Today</h2>
+      <p>Our mobile apps are launching soon — order online now and get home-cooked meals delivered to your door.</p>
+      <a class="order-cta" href="https://meals.bruppers.com" target="_blank" rel="noopener noreferrer">
+        <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12a10 10 0 0 0 20 0H2zm10-9a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 12H5a7 7 0 0 1 6-6.94V4a1 1 0 0 1 1-1z" /></svg>
+        Order Online Now <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="apps-soon">Mobile apps coming soon — tap a badge to order online meanwhile</p>
+      <div class="download-buttons reveal-stagger">
+        <a href="https://meals.bruppers.com" class="store-btn" target="_blank"
+          rel="noopener noreferrer" aria-label="Google Play app coming soon — order online instead">
+          <span class="store-badge">Soon</span>
           <!-- Google Play icon -->
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -1906,8 +2768,9 @@
             <strong>Google Play</strong>
           </div>
         </a>
-        <a href="https://apps.apple.com/app/bruppers/id000000000" class="store-btn" target="_blank"
-          rel="noopener noreferrer" aria-label="Download on the App Store">
+        <a href="https://meals.bruppers.com" class="store-btn" target="_blank"
+          rel="noopener noreferrer" aria-label="App Store app coming soon — order online instead">
+          <span class="store-badge">Soon</span>
           <!-- Apple icon -->
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -1924,12 +2787,12 @@
     <!-- ── HOW IT WORKS ── -->
     <section id="how-it-works">
       <div class="section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-label">Simple Process</span>
           <h2 class="section-title">How Bruppers Works</h2>
           <p class="section-sub">Three easy steps and you're set for fresh, healthy meals every single day.</p>
         </div>
-        <div class="steps-grid" role="list">
+        <div class="steps-grid reveal-stagger" role="list">
           <article class="step-card" role="listitem">
             <div class="step-number" aria-label="Step 1">1</div>
             <h3>Pick a Plan</h3>
@@ -1946,6 +2809,14 @@
             <p>Your fresh home-cooked meal arrives hot at your door, cooked that morning. Pause or skip any day with one
               tap.</p>
           </article>
+          <svg class="step-arrow step-arrow-1" viewBox="0 0 70 40" fill="none" aria-hidden="true">
+            <path class="line" pathLength="100" d="M6 28 C 24 6, 46 6, 62 24" />
+            <path class="head" pathLength="100" d="M59 13 L 62 24 L 52 20" />
+          </svg>
+          <svg class="step-arrow step-arrow-2" viewBox="0 0 70 40" fill="none" aria-hidden="true">
+            <path class="line" pathLength="100" d="M6 28 C 24 6, 46 6, 62 24" />
+            <path class="head" pathLength="100" d="M59 13 L 62 24 L 52 20" />
+          </svg>
         </div>
       </div>
     </section>
@@ -1953,35 +2824,52 @@
     <!-- ── FEATURES ── -->
     <section id="features">
       <div class="section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-label">Why Subscribers Love It</span>
           <h2 class="section-title">Everything You Need<br />in One App</h2>
           <p class="section-sub">Bruppers takes the stress out of eating well — so you can focus on what matters.</p>
         </div>
-        <div class="features-grid">
+        <div class="features-grid reveal-stagger">
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">✨</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l1.9 5.6L19.5 9l-5.6 1.9L12 16l-1.9-5.1L4.5 9l5.6-1.4L12 2zm6 11l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9L18 13z" />
+              </svg>
+            </div>
             <div>
               <h3>Fresh Daily</h3>
               <p>Every meal is cooked fresh each morning and delivered hot. No reheated food, ever.</p>
             </div>
           </article>
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">📅</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm12 7v10H5V9h14zM7 11h5v5H7v-5z" />
+              </svg>
+            </div>
             <div>
-              <h3>Skip Anytime</h3>
-              <p>Traveling or eating out? Pause or skip a day with a single tap — no calls, no hassle.</p>
+              <h3>Skip or Cancel Anytime</h3>
+              <p>Traveling or eating out? Skip or cancel with a single tap — lunch before 10 AM, dinner before 5 PM. No
+                calls, no hassle.</p>
             </div>
           </article>
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">🕐</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm1-13h-2v6l5 3 1-1.7-4-2.3V7z" />
+              </svg>
+            </div>
             <div>
               <h3>Always On Time</h3>
               <p>Live delivery tracking so you always know exactly when your meal will arrive.</p>
             </div>
           </article>
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">💰</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.4 11.6l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .6 1.4l9 9a2 2 0 0 0 2.8 0l7-7a2 2 0 0 0 0-2.8zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z" />
+              </svg>
+            </div>
             <div>
               <h3>Save 15%</h3>
               <p>Monthly subscribers save significantly compared to daily à la carte ordering. Eat better, spend less.
@@ -1989,14 +2877,22 @@
             </div>
           </article>
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">🍽️</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 9H9V2H7v7H5V2H3v7c0 2.1 1.6 3.8 3.5 4v9h2v-9c1.9-.2 3.5-1.9 3.5-4V2h-2v7zm5-7v18h2v-9h2V6c0-2.2-1.8-4-4-4z" />
+              </svg>
+            </div>
             <div>
               <h3>Home-Cooked Quality</h3>
               <p>Real home-style recipes, hygienic kitchen, and ingredients you can trust — just like mom's kitchen.</p>
             </div>
           </article>
           <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">📍</div>
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+              </svg>
+            </div>
             <div>
               <h3>Doorstep Delivery</h3>
               <p>No need to step out. Your meal comes right to your building, hostel, or office every day.</p>
@@ -2009,7 +2905,7 @@
     <!-- ── APP PREVIEW ── -->
     <section id="app-preview">
       <div class="section-inner">
-        <div class="preview-grid">
+        <div class="preview-grid reveal">
           <div class="preview-phones" aria-label="App screenshots" role="img">
             <div class="phone-frame">
               <img src="assets/theme_review2.jpeg"
@@ -2041,11 +2937,13 @@
                   preferences</span></li>
             </ul>
             <div class="btn-row">
-              <a href="https://play.google.com/store/apps/details?id=com.bruppers.app" class="btn-primary"
-                target="_blank" rel="noopener noreferrer">⬇ Google Play</a>
-              <a href="https://apps.apple.com/app/bruppers/id000000000" class="btn-outline" target="_blank"
-                rel="noopener noreferrer">⬇ App Store</a>
+              <a href="https://meals.bruppers.com" class="btn-primary"
+                target="_blank" rel="noopener noreferrer"><svg class="btn-icon" viewBox="0 0 24 24"
+                  aria-hidden="true"><path d="M2 12a10 10 0 0 0 20 0H2zm10-9a1 1 0 0 1 1 1v1.06A7 7 0 0 1 19 12H5a7 7 0 0 1 6-6.94V4a1 1 0 0 1 1-1z" /></svg> Order Online</a>
+              <a href="#menu" class="btn-outline">View Menu</a>
             </div>
+            <p style="margin-top:16px; font-size:13px; color:var(--muted);"><svg class="apps-soon-icon"
+                viewBox="0 0 24 24" aria-hidden="true"><path d="M17 1H7a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 18H7V5h10v14z" /></svg>Mobile apps launching soon</p>
           </div>
         </div>
       </div>
@@ -2054,12 +2952,13 @@
     <!-- ── TESTIMONIALS ── -->
     <section id="testimonials">
       <div class="section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-label">What People Say</span>
           <h2 class="section-title">Loved by Thousands<br />of Subscribers</h2>
         </div>
-        <div class="testimonials-grid">
-          <article class="testimonial-card">
+        <div class="stack" id="testimonialStack" aria-roledescription="carousel"
+          aria-label="Customer testimonials — click a card or use the controls below">
+          <article class="stack-card testimonial-card" tabindex="0">
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
             <p>"Bruppers has completely changed how I eat. The food is genuinely home-cooked quality and always hot when
               it arrives. Best money I spend every month."</p>
@@ -2073,7 +2972,7 @@
               </div>
             </div>
           </article>
-          <article class="testimonial-card">
+          <article class="stack-card testimonial-card" tabindex="0">
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
             <p>"As a working professional, I never had time to cook. Bruppers solved that problem entirely. Skip feature
               is a lifesaver when I travel."</p>
@@ -2087,7 +2986,7 @@
               </div>
             </div>
           </article>
-          <article class="testimonial-card">
+          <article class="stack-card testimonial-card" tabindex="0">
             <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
             <p>"The app is so simple and the food is amazing. I've tried other tiffin services but nothing comes close
               to Bruppers in terms of taste and reliability."</p>
@@ -2102,18 +3001,23 @@
             </div>
           </article>
         </div>
+        <div class="stack-controls">
+          <button class="stack-btn" id="stackPrev" type="button" aria-label="Previous testimonial">‹</button>
+          <div class="stack-dots" id="stackDots" role="tablist" aria-label="Choose testimonial"></div>
+          <button class="stack-btn" id="stackNext" type="button" aria-label="Next testimonial">›</button>
+        </div>
       </div>
     </section>
 
     <!-- ── PLANS ── -->
     <section id="plans">
       <div class="section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-label">Pricing</span>
           <h2 class="section-title">Simple, Honest Pricing</h2>
           <p class="section-sub">No hidden fees. No surprises. Just great food at fair prices.</p>
         </div>
-        <div class="plans-grid">
+        <div class="plans-grid reveal-stagger">
           <article class="plan-card">
             <div class="plan-name">Lunch Only</div>
             <div class="plan-price"><sup>₹</sup>99<sub>/day</sub></div>
@@ -2124,7 +3028,7 @@
               <li class="plan-feature">Live delivery tracking</li>
               <li class="plan-feature">In-app order management</li>
             </ul>
-            <a href="#download" class="btn-plan">Get Started</a>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
           </article>
           <article class="plan-card featured" aria-label="Most popular plan">
             <div class="plan-badge">Most Popular</div>
@@ -2138,7 +3042,7 @@
               <li class="plan-feature">Priority support</li>
               <li class="plan-feature">All Basic plans features are supported</li>
             </ul>
-            <a href="#download" class="btn-plan">Get Started</a>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
           </article>
           <article class="plan-card">
             <div class="plan-name">Dinner Only</div>
@@ -2150,7 +3054,7 @@
               <li class="plan-feature">Live delivery tracking</li>
               <li class="plan-feature">In-app order management</li>
             </ul>
-            <a href="#download" class="btn-plan">Get Started</a>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
           </article>
         </div>
       </div>
@@ -2159,12 +3063,12 @@
     <!-- FAQ -->
     <section id="faq" aria-labelledby="faq-heading">
       <div class="section-inner">
-        <div class="section-header">
+        <div class="section-header reveal">
           <span class="section-label">FAQ</span>
           <h2 class="section-title" id="faq-heading">Frequently Asked Questions</h2>
           <p class="section-sub">Everything you need to know about Bruppers and your daily meal subscription.</p>
         </div>
-        <div class="faq-list">
+        <div class="faq-list reveal-stagger">
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">How does Bruppers work?<span class="faq-icon"
                 aria-hidden="true">+</span></button>
@@ -2178,6 +3082,15 @@
                 class="faq-icon" aria-hidden="true">+</span></button>
             <div class="faq-answer" hidden>
               <p>Yes. Skip or pause any day with a single tap — no calls, no penalty, no questions asked.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">What is the cancellation policy?<span
+                class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer" hidden>
+              <p>You can cancel a meal any day before it's prepared — <strong>lunch orders before 10:00 AM</strong> and
+                <strong>dinner orders before 5:00 PM</strong>. Just cancel in the app or online before the cut-off and
+                you won't be charged for that meal.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -2196,10 +3109,12 @@
             </div>
           </div>
           <div class="faq-item">
-            <button class="faq-question" aria-expanded="false">Where can I download the Bruppers app?<span
+            <button class="faq-question" aria-expanded="false">How do I order right now?<span
                 class="faq-icon" aria-hidden="true">+</span></button>
             <div class="faq-answer" hidden>
-              <p>Free on Android and iOS — search Bruppers on Google Play or the Apple App Store.</p>
+              <p>Order online at <a href="https://meals.bruppers.com" target="_blank" rel="noopener noreferrer"
+                  style="color:var(--red); font-weight:600;">meals.bruppers.com</a> — pick your plan and meals get
+                delivered fresh to your door. Our Android and iOS apps are launching soon.</p>
             </div>
           </div>
         </div>
@@ -2209,7 +3124,7 @@
     <!-- ── CONTACT ── -->
     <section id="contact">
       <div class="section-inner">
-        <div class="contact-grid">
+        <div class="contact-grid reveal">
           <div class="contact-info">
             <span class="section-label">Get in Touch</span>
             <h2>We'd Love<br />to Hear from You</h2>
@@ -2315,8 +3230,10 @@
           <h4>Product</h4>
           <ul>
             <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#menu">This Week's Menu</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#plans">Pricing</a></li>
+            <li><a href="https://meals.bruppers.com" target="_blank" rel="noopener noreferrer">Order Online</a></li>
             <li><a href="#download">Download App</a></li>
           </ul>
         </div>
@@ -2363,6 +3280,13 @@
 
   <!-- ── FLOATING SOCIAL BUTTONS ── -->
   <div class="float-social" aria-label="Quick contact">
+    <a href="https://meals.bruppers.com" class="float-btn order" target="_blank" rel="noopener noreferrer"
+      aria-label="Order online now">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 14h9.69c.75 0 1.41-.41 1.75-1.03l3.24-5.88A1 1 0 0 0 21 5.62H6.21l-.94-2.05A1 1 0 0 0 4.36 3H1v2h2.6l3.6 7.59-1.35 2.44C5.16 16.37 5.96 18 7.16 18H19v-2H7.16l1-2z" />
+      </svg>
+    </a>
     <a href="https://wa.me/919556500963?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20Bruppers"
       class="float-btn wa" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -2468,12 +3392,140 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        status.textContent = "✅ Message sent successfully!";
+        status.textContent = "✓ Message sent successfully!";
         e.target.reset();
       } catch (err) {
-        status.textContent = "❌ Something went wrong. Please try again.";
+        status.textContent = "✕ Something went wrong. Please try again.";
       }
     });
+  </script>
+
+  <!-- ── INTERACTIVITY: reveal, count-up, card stack, tilt ── -->
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Scroll reveal (sections + staggered grids) ── */
+      var revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+      if (reduce || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var revObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              revObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { revObserver.observe(el); });
+      }
+
+      /* ── Animated stat count-up ── */
+      function countUp(el) {
+        var m = /^(\D*)([\d.]+)(.*)$/.exec(el.textContent.trim());
+        if (!m) return;
+        var prefix = m[1], target = parseFloat(m[2]), suffix = m[3];
+        var decimals = (m[2].split('.')[1] || '').length;
+        var dur = 1300, start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = prefix + target.toFixed(decimals) + suffix;
+        }
+        requestAnimationFrame(step);
+      }
+
+      if (!reduce && 'IntersectionObserver' in window) {
+        var statsRow = document.querySelector('.hero-stats');
+        if (statsRow) {
+          var statObs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                statsRow.querySelectorAll('.stat-pill strong').forEach(countUp);
+                statObs.disconnect();
+              }
+            });
+          }, { threshold: 0.5 });
+          statObs.observe(statsRow);
+        }
+      }
+
+      /* ── Testimonial card stack ── */
+      var stack = document.getElementById('testimonialStack');
+      if (stack) {
+        var cards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
+        var dotsWrap = document.getElementById('stackDots');
+        var n = cards.length;
+        var current = 0;
+
+        var dots = cards.map(function (_, i) {
+          var d = document.createElement('button');
+          d.className = 'stack-dot' + (i === 0 ? ' active' : '');
+          d.type = 'button';
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', 'Show testimonial ' + (i + 1));
+          d.addEventListener('click', function () { go(i); restart(); });
+          dotsWrap.appendChild(d);
+          return d;
+        });
+
+        function render() {
+          cards.forEach(function (card, i) {
+            var offset = (i - current + n) % n;
+            var translate, scale, opacity, z;
+            if (offset === 0)      { translate = 0;  scale = 1;    opacity = 1; z = n; }
+            else if (offset === 1) { translate = 18; scale = 0.94; opacity = 1; z = n - 1; }
+            else if (offset === 2) { translate = 36; scale = 0.88; opacity = 1; z = n - 2; }
+            else                   { translate = 36; scale = 0.88; opacity = 0; z = 0; }
+            card.style.transform = 'translateY(' + translate + 'px) scale(' + scale + ')';
+            card.style.opacity = opacity;
+            card.style.zIndex = z;
+            card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+          });
+          dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+        }
+
+        function go(i) { current = (i + n) % n; render(); }
+        function next() { go(current + 1); }
+        function prev() { go(current - 1); }
+
+        document.getElementById('stackNext').addEventListener('click', function () { next(); restart(); });
+        document.getElementById('stackPrev').addEventListener('click', function () { prev(); restart(); });
+
+        cards.forEach(function (card) {
+          card.addEventListener('click', function () { next(); restart(); });
+          card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); next(); restart(); }
+          });
+        });
+
+        render();
+
+        /* autoplay (pauses on hover, respects reduced motion) */
+        var timer = null;
+        function start() { if (!reduce) timer = setInterval(next, 5000); }
+        function restart() { clearInterval(timer); start(); }
+        start();
+        stack.addEventListener('mouseenter', function () { clearInterval(timer); });
+        stack.addEventListener('mouseleave', start);
+      }
+
+      /* ── Menu widget 3D tilt (fine pointers only) ── */
+      var widget = document.querySelector('.menu-widget');
+      if (widget && !reduce && window.matchMedia('(pointer:fine)').matches) {
+        widget.addEventListener('mousemove', function (e) {
+          var r = widget.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          widget.style.transform = 'perspective(1000px) rotateX(' + (-py * 5) + 'deg) rotateY(' + (px * 6) + 'deg)';
+        });
+        widget.addEventListener('mouseleave', function () { widget.style.transform = ''; });
+      }
+    })();
   </script>
 </body>
 
