@@ -895,6 +895,19 @@
       margin-bottom: 18px;
     }
 
+    .plan-card:not(.featured) .plan-badge {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .plan-badge--long {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 10px;
+      line-height: 1.35;
+      max-width: 100%;
+    }
+
     .plan-name {
       font-size: 18px;
       font-weight: 700;
@@ -950,6 +963,34 @@
 
     .plan-card.featured .plan-feature::before {
       color: rgba(255, 255, 255, 0.9);
+    }
+
+    .plan-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 12px 0 4px;
+    }
+
+    .plan-price-old {
+      font-size: 22px;
+      font-weight: 600;
+      text-decoration: line-through;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+
+    .plan-card.featured .plan-price-old {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .plans-delivery-note {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
     }
 
     .btn-plan {
@@ -2745,6 +2786,61 @@
       </div>
     </section>
 
+    <!-- ── PLANS ── -->
+    <section id="plans">
+      <div class="section-inner">
+        <div class="section-header reveal">
+          <span class="section-label">Pricing</span>
+          <h2 class="section-title">Simple, Honest Pricing</h2>
+          <p class="section-sub">No hidden fees. No surprises. Just great food at fair prices.</p>
+        </div>
+        <div class="plans-grid reveal-stagger">
+          <article class="plan-card">
+            <div class="plan-name">Weekly Trial</div>
+            <div class="plan-price"><sup>₹</sup>555</div>
+            <div class="plan-sub">Try Bruppers for one full week</div>
+            <ul class="plan-features" aria-label="Weekly trial plan features">
+              <li class="plan-feature">7 days of fresh home-cooked meals</li>
+              <li class="plan-feature">Skip any day for free</li>
+              <li class="plan-feature">Live delivery tracking</li>
+              <li class="plan-feature">In-app order management</li>
+            </ul>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
+          </article>
+          <article class="plan-card featured" aria-label="Monthly plan with free extra week">
+            <div class="plan-badge plan-badge--long">1 Working Week Free Extra Meal</div>
+            <div class="plan-name">Monthly Plan</div>
+            <div class="plan-price"><sup>₹</sup>3,024</div>
+            <div class="plan-sub">28-day subscription · Billed monthly</div>
+            <ul class="plan-features" aria-label="Monthly plan features">
+              <li class="plan-feature">Fresh meals every day</li>
+              <li class="plan-feature">Skip any day for free</li>
+              <li class="plan-feature">Live delivery tracking</li>
+              <li class="plan-feature">In-app order management</li>
+            </ul>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
+          </article>
+          <article class="plan-card" aria-label="Corporate plan with 10% off">
+            <div class="plan-badge">10% Off</div>
+            <div class="plan-name">Corporate Plan</div>
+            <div class="plan-price-row">
+              <span class="plan-price-old">₹2,160</span>
+              <div class="plan-price"><sup>₹</sup>1,944</div>
+            </div>
+            <div class="plan-sub">Bulk subscription for teams &amp; offices</div>
+            <ul class="plan-features" aria-label="Corporate plan features">
+              <li class="plan-feature">Dedicated account support</li>
+              <li class="plan-feature">Flexible team meal schedules</li>
+              <li class="plan-feature">Live delivery tracking</li>
+              <li class="plan-feature">Priority support</li>
+            </ul>
+            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
+          </article>
+        </div>
+        <p class="plans-delivery-note reveal">Delivery charges are included in plan.</p>
+      </div>
+    </section>
+
     <!-- ── DOWNLOAD ── -->
     <div id="download" class="download-strip">
       <h2>Order Fresh Meals Today</h2>
@@ -3005,60 +3101,6 @@
           <button class="stack-btn" id="stackPrev" type="button" aria-label="Previous testimonial">‹</button>
           <div class="stack-dots" id="stackDots" role="tablist" aria-label="Choose testimonial"></div>
           <button class="stack-btn" id="stackNext" type="button" aria-label="Next testimonial">›</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── PLANS ── -->
-    <section id="plans">
-      <div class="section-inner">
-        <div class="section-header reveal">
-          <span class="section-label">Pricing</span>
-          <h2 class="section-title">Simple, Honest Pricing</h2>
-          <p class="section-sub">No hidden fees. No surprises. Just great food at fair prices.</p>
-        </div>
-        <div class="plans-grid reveal-stagger">
-          <article class="plan-card">
-            <div class="plan-name">Lunch Only</div>
-            <div class="plan-price"><sup>₹</sup>99<sub>/day</sub></div>
-            <div class="plan-sub">Monthly plan · Billed ₹3,024/mo (28 days)</div>
-            <ul class="plan-features" aria-label="Lunch plan features">
-              <li class="plan-feature">Fresh lunch every day</li>
-              <li class="plan-feature">Skip any day for free</li>
-              <li class="plan-feature">Live delivery tracking</li>
-              <li class="plan-feature">In-app order management</li>
-              <li class="plan-feature">Delivery charges included in monthly plan</li>
-            </ul>
-            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
-          </article>
-          <article class="plan-card featured" aria-label="Most popular plan">
-            <div class="plan-badge">Most Popular</div>
-            <div class="plan-name">Lunch + Dinner</div>
-            <div class="plan-price"><sup>₹</sup>198<sub>/day</sub></div>
-            <div class="plan-sub">Monthly plan · Billed ₹6048/mo (28 days)</div>
-            <ul class="plan-features" aria-label="Lunch and dinner plan features">
-              <li class="plan-feature">Lunch & dinner every day</li>
-              <li class="plan-feature">Skip any day for free</li>
-              <li class="plan-feature">Live delivery tracking</li>
-              <li class="plan-feature">Priority support</li>
-              <li class="plan-feature">All Basic plans features are supported</li>
-              <li class="plan-feature">Delivery charges included in monthly plan</li>
-            </ul>
-            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
-          </article>
-          <article class="plan-card">
-            <div class="plan-name">Dinner Only</div>
-            <div class="plan-price"><sup>₹</sup>99<sub>/day</sub></div>
-            <div class="plan-sub">Monthly plan · Billed ₹3,024/mo (28 days)</div>
-            <ul class="plan-features" aria-label="Dinner plan features">
-              <li class="plan-feature">Fresh dinner every day</li>
-              <li class="plan-feature">Skip any day for free</li>
-              <li class="plan-feature">Live delivery tracking</li>
-              <li class="plan-feature">In-app order management</li>
-              <li class="plan-feature">Delivery charges included in monthly plan</li>
-            </ul>
-            <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
-          </article>
         </div>
       </div>
     </section>
