@@ -886,26 +886,88 @@
       display: inline-block;
       background: #fff;
       color: var(--red);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .5px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .6px;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 10px 18px;
       border-radius: 50px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(196, 30, 58, 0.22);
     }
 
     .plan-card:not(.featured) .plan-badge {
       background: var(--red);
       color: #fff;
+      box-shadow: 0 4px 18px rgba(196, 30, 58, 0.35);
+    }
+
+    .plan-card.featured .plan-badge {
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
     }
 
     .plan-badge--long {
+      display: block;
+      width: 100%;
+      text-align: center;
       text-transform: none;
       letter-spacing: 0;
-      font-size: 10px;
+      font-size: 15px;
+      font-weight: 800;
       line-height: 1.35;
-      max-width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+    }
+
+    .plan-badge--offer {
+      font-size: 22px;
+      letter-spacing: 1px;
+      padding: 12px 28px;
+      animation: offer-pulse 2.8s ease-in-out infinite;
+    }
+
+    .plan-badge--promo {
+      animation: offer-pulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes offer-pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 16px rgba(196, 30, 58, 0.22);
+      }
+
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 6px 22px rgba(196, 30, 58, 0.38);
+      }
+    }
+
+    .plan-card.featured .plan-badge--promo {
+      animation-name: offer-pulse-featured;
+    }
+
+    @keyframes offer-pulse-featured {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .plan-badge--offer,
+      .plan-badge--promo {
+        animation: none;
+      }
     }
 
     .plan-name {
@@ -968,17 +1030,27 @@
     .plan-price-row {
       display: flex;
       align-items: baseline;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin: 12px 0 4px;
+      margin: 14px 0 6px;
+    }
+
+    .plan-price-row .plan-price {
+      font-size: 44px;
+      margin: 0;
     }
 
     .plan-price-old {
-      font-size: 22px;
-      font-weight: 600;
+      font-size: 30px;
+      font-weight: 700;
       text-decoration: line-through;
+      text-decoration-thickness: 2px;
       color: var(--muted);
-      opacity: 0.8;
+      opacity: 0.85;
+    }
+
+    .plan-card .plan-price-row+.plan-sub {
+      margin-top: 4px;
     }
 
     .plan-card.featured .plan-price-old {
@@ -1653,6 +1725,24 @@
         font-size: 30px;
       }
 
+      .plan-price-row .plan-price {
+        font-size: 36px;
+      }
+
+      .plan-price-old {
+        font-size: 24px;
+      }
+
+      .plan-badge--offer {
+        font-size: 18px;
+        padding: 10px 22px;
+      }
+
+      .plan-badge--long {
+        font-size: 13px;
+        padding: 12px 14px;
+      }
+
       /* contact */
       .contact-info h2 {
         font-size: 26px;
@@ -1754,6 +1844,18 @@
 
       .plan-price {
         font-size: 26px;
+      }
+
+      .plan-price-row .plan-price {
+        font-size: 32px;
+      }
+
+      .plan-price-old {
+        font-size: 20px;
+      }
+
+      .plan-badge--offer {
+        font-size: 16px;
       }
     }
 
@@ -2808,7 +2910,7 @@
             <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
           </article>
           <article class="plan-card featured" aria-label="Monthly plan with free extra week">
-            <div class="plan-badge plan-badge--long">1 Working Week Free Extra Meal</div>
+            <div class="plan-badge plan-badge--long plan-badge--promo">1 Working Week Free Extra Meal</div>
             <div class="plan-name">Monthly Plan</div>
             <div class="plan-price"><sup>₹</sup>3,024</div>
             <div class="plan-sub">28-day subscription · Billed monthly</div>
@@ -2821,7 +2923,7 @@
             <a href="https://meals.bruppers.com" class="btn-plan" target="_blank" rel="noopener noreferrer">Get Started</a>
           </article>
           <article class="plan-card" aria-label="Corporate plan with 10% off">
-            <div class="plan-badge">10% Off</div>
+            <div class="plan-badge plan-badge--offer">10% Off</div>
             <div class="plan-name">Corporate Plan</div>
             <div class="plan-price-row">
               <span class="plan-price-old">₹2,160</span>
